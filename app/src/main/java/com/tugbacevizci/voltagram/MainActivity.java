@@ -17,6 +17,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final int COLUMN_NUMBER=3;
     private static final String TAG = MainActivity.class.getSimpleName();;
     List<Photo> photoList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -28,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        photoAdapter = new PhotoAdapter(photoList,R.layout.card_view_layout,getApplicationContext());
         recyclerView = (RecyclerView) findViewById(R.id.photo_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, COLUMN_NUMBER));
+        recyclerView.setAdapter(photoAdapter);
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<Photo> call = apiInterface.getJsonValues();
+        Call<Photo> call = apiInterface.getPhotos();
 
         call.enqueue(new Callback<Photo>() {
 
@@ -40,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Photo> call, Response<Photo> response) {
                 if (response != null && response.errorBody() != null) {
+
                     photoList = Arrays.asList(response.body());
-                    photoAdapter = new PhotoAdapter(photoList, R.layout.card_view_layout, getApplicationContext());
-                    recyclerView.setAdapter(photoAdapter);
 
                 }
             }

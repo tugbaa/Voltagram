@@ -8,7 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiClient {
 
-    private final static String API_KEY = "ef61c0a25853f39fcaf7c1d3931e9338";
     public final static String BASE_URL = "https://api.flickr.com/services/rest/";
     private static Retrofit retrofit = null;
 
