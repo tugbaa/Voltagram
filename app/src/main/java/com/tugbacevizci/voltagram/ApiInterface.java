@@ -1,6 +1,6 @@
 package com.tugbacevizci.voltagram;
 
-import retrofit2.Callback;
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
@@ -8,6 +8,7 @@ import retrofit2.http.GET;
  */
 public interface ApiInterface {
 
-    @GET("/servejson")
-    void getJsonValues(Callback<Photo[]> response);
+    @GET("/services/rest/?method=flickr.photos.search&api_key=ef61c0a25853f39fcaf7c1d3931e9338&format=json&nojsoncallback=1&text=cats&extras=url_oc")
+    Call<Photo> getJsonValues();
+
 }

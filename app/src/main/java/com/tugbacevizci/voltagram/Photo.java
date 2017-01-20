@@ -8,14 +8,12 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Photo {
 
-
     @SerializedName("photos")
     @Expose
     public Photos photos;
     @SerializedName("stat")
     @Expose
     public String stat;
-
 
 }
 

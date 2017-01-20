@@ -1,55 +1,57 @@
 package com.tugbacevizci.voltagram;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 
 /**
  * Created by tugbacevizci on 19/01/17.
  */
-public class PhotoAdapter extends ArrayAdapter<Photo> {
+public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
 
     private Context context;
-    private List<Photo> arrayList = new ArrayList<Photo>();
-    private ViewHolder viewHolder;
+    private List<Photo> photos;
+    private int rowLayout;
 
-    public PhotoAdapter(Context context, List<Photo> list_items) {
-        super(context, R.layout.list_item_photo, list_items);
+    public PhotoAdapter(List<Photo> photos, int rowLayout, Context context) {
+        this.photos = photos;
+        this.rowLayout = rowLayout;
         this.context = context;
-        this.arrayList = list_items;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public PhotoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+        return new ViewHolder(view);
+    }
 
-        View view = convertView;
+    @Override
+    public void onBindViewHolder(PhotoAdapter.ViewHolder holder, int position) {
 
-        if(view == null){
-
-            LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-            view = layoutInflater.inflate(R.layout.list_item_photo, parent,false);
-
-            viewHolder = new ViewHolder();
-            viewHolder.image = (ImageView)view.findViewById(R.id.photo_iv);
-            view.setTag(viewHolder);
-
-        }else{
-
-            viewHolder = (ViewHolder) view.getTag();
-        }
-        return view;
+        Photos photo = photos.get(position).photos;
+        Picasso.with(context).load(photo.perpage).into(holder.imageView);
 
     }
 
-    private static class ViewHolder{
+    @Override
+    public int getItemCount() {
+        return photos.size();
+    }
 
-        ImageView image;
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        private ImageView imageView;
+
+        public ViewHolder(View view) {
+            super(view);
+            imageView = (ImageView) itemView.findViewById(R.id.photo_image_view);
+        }
     }
 }

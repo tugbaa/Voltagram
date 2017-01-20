@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Photo_ {
 
-
     @SerializedName("id")
     @Expose
     public String id;
@@ -36,4 +35,8 @@ public class Photo_ {
     @SerializedName("isfamily")
     @Expose
     public Integer isfamily;
+    @SerializedName("ispublihttps://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ef61c0a25853f39fcaf7c1d3931e9338&format=json&nojsoncallback=1&text=cats&extras=url_oc")
+    @Expose
+    public Integer ispublihttpsApiFlickrComServicesRestMethodFlickrPhotosSearchApiKeyEf61c0a25853f39fcaf7c1d3931e9338FormatJsonNojsoncallback1TextCatsExtrasUrlOc;
+
 }
